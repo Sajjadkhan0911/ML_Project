@@ -1,5 +1,5 @@
-import streamlit as pd
 import streamlit as st
+import pandas as pd
 import numpy as np
 import pickle
 
@@ -41,7 +41,7 @@ st.markdown("""
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
     </style>
-""", unsafe_scale=True)
+""", unsafe_allow_html=True)
 
 # -----------------------------------------------------------------------------
 # 2. CACHED MODEL & ARTIFACT LOADERS
@@ -143,10 +143,10 @@ else:
                 step_val = 0.1 if isinstance(meta['default'], float) else 1
                 raw_user_inputs[feat_id] = st.number_input(
                     label=meta['label'],
-                    min_value=meta['min'],
-                    max_value=meta['max'],
-                    value=meta['default'],
-                    step=step_val,
+                    min_value=float(meta['min']),
+                    max_value=float(meta['max']),
+                    value=float(meta['default']),
+                    step=float(step_val),
                     key=f"input_{feat_id}"
                 )
             elif meta['type'] == 'cat':
